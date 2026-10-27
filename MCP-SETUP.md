@@ -7,3 +7,8 @@
 
 OpenCode global config: ~/.config/opencode/opencode.json
 MCP server name: wordpress
+
+## Auto-start after reboot
+
+- `mcp-patch.service` (systemd) re-applies the MCP patch after boot.
+- OpenCode service and Docker containers are enabled for auto-start.

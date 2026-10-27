@@ -697,3 +697,70 @@ add_action( 'wp_abilities_api_init', function () {
         'meta'=>array('public'=>true,'mcp'=>array('public'=>true,'type'=>'tool')),
     ));
 } );
+
+// Theme file editing abilities
+add_action( 'wp_abilities_api_init', function () {
+    $cap_admin = function () { return current_user_can( 'manage_options' ); };
+
+    $theme_dir = get_stylesheet_directory();
+
+    wp_register_ability( 'wordpress/theme-file-list', array(
+        'label'=>'List Theme Files','description'=>'List files in the active theme directory.','category'=>'wordpress-management',
+        'input_schema'=>array('type'=>'object','properties'=>array('subdir'=>array('type'=>'string'))),
+        'output_schema'=>array('type'=>'array'),
+        'execute_callback'=>function($input) use ($theme_dir) {
+            $base = $theme_dir;
+            if ( ! empty( $input['subdir'] ) ) $base .= '/' . ltrim( $input['subdir'], '/' );
+            $files = array();
+            $it = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $base, FilesystemIterator::SKIP_DOTS ) );
+            foreach ( $it as $f ) {
+                if ( $f->isFile() ) {
+                    $files[] = str_replace( $theme_dir . '/', '', $f->getPathname() );
+                }
+            }
+            sort( $files );
+            return $files;
+        },
+        'permission_callback'=>$cap_admin,
+        'meta'=>array('public'=>true,'mcp'=>array('public'=>true,'type'=>'tool')),
+    ));
+
+    wp_register_ability( 'wordpress/theme-file-get', array(
+        'label'=>'Get Theme File','description'=>'Read a theme file content.','category'=>'wordpress-management',
+        'input_schema'=>array('type'=>'object','properties'=>array('path'=>array('type'=>'string')),'required'=>array('path')),
+        'output_schema'=>array('type'=>'object'),
+        'execute_callback'=>function($input) use ($theme_dir) {
+            $rel = ltrim( str_replace( '\\', '/', $input['path'] ), '/' );
+            if ( strpos( $rel, '..' ) !== false ) return new WP_Error('invalid_path','Invalid path.');
+            $full = $theme_dir . '/' . $rel;
+            $real = realpath( $full );
+            if ( ! $real || strpos( $real, realpath( $theme_dir ) ) !== 0 || ! is_file( $real ) ) {
+                return new WP_Error( 'not_found', 'File not found.' );
+            }
+            return array( 'path'=>$rel, 'content'=>file_get_contents( $real ) );
+        },
+        'permission_callback'=>$cap_admin,
+        'meta'=>array('public'=>true,'mcp'=>array('public'=>true,'type'=>'tool')),
+    ));
+
+    wp_register_ability( 'wordpress/theme-file-update', array(
+        'label'=>'Update Theme File','description'=>'Write content to a theme file.','category'=>'wordpress-management',
+        'input_schema'=>array('type'=>'object','properties'=>array(
+            'path'=>array('type'=>'string'),
+            'content'=>array('type'=>'string'),
+        ),'required'=>array('path','content')),
+        'output_schema'=>array('type'=>'object'),
+        'execute_callback'=>function($input) use ($theme_dir) {
+            $rel = ltrim( str_replace( '\\', '/', $input['path'] ), '/' );
+            if ( strpos( $rel, '..' ) !== false ) return new WP_Error('invalid_path','Invalid path.');
+            $full = $theme_dir . '/' . $rel;
+            $dir = dirname( $full );
+            if ( ! is_dir( $dir ) ) wp_mkdir_p( $dir );
+            $bytes = file_put_contents( $full, $input['content'] );
+            if ( $bytes === false ) return new WP_Error( 'write_failed', 'Write failed.' );
+            return array( 'path'=>$rel, 'bytes'=>$bytes, 'updated'=>true );
+        },
+        'permission_callback'=>$cap_admin,
+        'meta'=>array('public'=>true,'mcp'=>array('public'=>true,'type'=>'tool')),
+    ));
+} );

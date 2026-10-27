@@ -172,12 +172,14 @@ add_action( 'wp_abilities_api_init', function () {
 
     // --- Taxonomies (categories/tags) ---
     foreach ( array( 'category', 'post_tag' ) as $tax ) {
-        $label = $tax === 'category' ? 'Category' : 'Tag';
-        $slug  = $tax === 'category' ? 'category' : 'tag';
+        $label   = $tax === 'category' ? 'Category' : 'Tag';
+        $slug    = $tax === 'category' ? 'category' : 'tag';
+        $plural  = $tax === 'category' ? 'categories' : 'tags';
+        $labelp  = $tax === 'category' ? 'Categories' : 'Tags';
 
-        wp_register_ability( "wordpress/list-{$slug}s", array(
-            'label'               => "List {$label}s",
-            'description'         => "List {$label}s.",
+        wp_register_ability( "wordpress/list-{$plural}", array(
+            'label'               => "List {$labelp}",
+            'description'         => "List {$labelp}.",
             'category'            => 'wordpress-management',
             'input_schema'        => array(
                 'type'       => 'object',

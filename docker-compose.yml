@@ -17,7 +17,8 @@ services:
       retries: 10
 
   wordpress:
-    image: wordpress:latest
+    build: .
+    image: world-wordpress:soap
     restart: unless-stopped
     depends_on:
       db:

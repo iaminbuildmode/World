@@ -1,0 +1,446 @@
+/* ============================================================
+   Lebas Elementor Suite — Quiet Luxury Design System
+   RTL-first, white background, sharp corners, monochrome icons.
+   ============================================================ */
+
+:root {
+    --lebas-bg: #ffffff;
+    --lebas-bg-soft: #fafafa;
+    --lebas-bg-muted: #f5f5f5;
+    --lebas-border: #e5e5e5;
+    --lebas-text: #000000;
+    --lebas-text-muted: #555555;
+    --lebas-accent-red: #ed0000; /* ONLY allowed red usage: cart urgency bar */
+    --lebas-font-sans: 'LebasSans', 'Vazirmatn', 'Jost', sans-serif;
+    --lebas-font-serif: 'LebasSerif', 'Estedad', 'Cormorant Garamond', serif;
+}
+
+.lebas-root {
+    direction: rtl;
+    text-align: right;
+    font-family: var(--lebas-font-sans);
+    background: var(--lebas-bg);
+    color: var(--lebas-text);
+}
+
+/* ---------- Price Tag (million rials) ---------- */
+.lebas-price-tag {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: var(--lebas-font-sans);
+    line-height: 1;
+    direction: ltr;
+}
+.lebas-price-tag__amount {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+.lebas-price-tag__unit {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.6rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--lebas-text-muted);
+}
+.lebas-price-tag__unit span:first-child { margin-bottom: 0.1rem; }
+
+/* ---------- Product Card ---------- */
+.lebas-product-card {
+    position: relative;
+    background: var(--lebas-bg);
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+.lebas-product-card:hover { border-color: var(--lebas-border); }
+.lebas-product-card__media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: var(--lebas-bg-soft);
+}
+.lebas-product-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.45s ease;
+}
+.lebas-product-card__img--secondary { opacity: 0; }
+.lebas-product-card:hover .lebas-product-card__img--primary { opacity: 0; }
+.lebas-product-card:hover .lebas-product-card__img--secondary { opacity: 1; }
+.lebas-product-card__wishlist {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--lebas-bg);
+    border: 1px solid var(--lebas-border);
+    cursor: pointer;
+    z-index: 2;
+}
+.lebas-product-card__wishlist svg { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 1.25; }
+.lebas-product-card__info {
+    padding: 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.lebas-product-card__brand {
+    font-size: 0.75rem;
+    color: var(--lebas-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+.lebas-product-card__title {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.3;
+}
+.lebas-product-card__sizes {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+}
+.lebas-product-card__size {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--lebas-border);
+    cursor: pointer;
+}
+.lebas-product-card__size.is-unavailable {
+    text-decoration: line-through;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.lebas-product-card__price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+/* ---------- Gateway 3-col ---------- */
+.lebas-gateway {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+}
+.lebas-gateway__col {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 2 / 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 2rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    background: var(--lebas-bg-soft);
+}
+.lebas-gateway__col img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.lebas-gateway__col:hover img { transform: scale(1.05); }
+.lebas-gateway__label {
+    position: relative;
+    z-index: 2;
+    font-family: var(--lebas-font-serif);
+    font-size: 1.75rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+/* ---------- Editorial Landing ---------- */
+.lebas-editorial { display: flex; flex-direction: column; gap: 4rem; }
+.lebas-editorial__hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--lebas-bg-soft);
+}
+.lebas-editorial__hero img { width: 100%; height: 100%; object-fit: cover; }
+.lebas-editorial__hero-title {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-family: var(--lebas-font-serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #fff;
+}
+.lebas-editorial__section-title {
+    font-family: var(--lebas-font-serif);
+    font-size: 1.75rem;
+    font-weight: 300;
+    text-align: center;
+    margin: 0 0 1.5rem;
+}
+.lebas-editorial__view-all {
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    margin-bottom: 2rem;
+}
+.lebas-editorial__two-topics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+.lebas-editorial__topic {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+}
+.lebas-editorial__topic-title {
+    font-family: var(--lebas-font-serif);
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+.lebas-editorial__entry-doors {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+.lebas-editorial__door {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+    border: 1px solid var(--lebas-border);
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+}
+.lebas-editorial__door:hover { background: var(--lebas-bg-soft); }
+
+/* ---------- Search Underline ---------- */
+.lebas-search-underline {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--lebas-border);
+    padding: 0.25rem 0;
+}
+.lebas-search-underline input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-family: var(--lebas-font-sans);
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+}
+.lebas-search-underline svg { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 1.25; }
+
+/* ---------- Storefront Header ---------- */
+.lebas-header {
+    background: var(--lebas-bg);
+    border-bottom: 1px solid var(--lebas-border);
+}
+.lebas-header__row1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+}
+.lebas-header__dept-switcher {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+}
+.lebas-header__logo {
+    font-family: var(--lebas-font-serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-align: center;
+}
+.lebas-header__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.lebas-header__row2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    border-top: 1px solid var(--lebas-border);
+    position: sticky;
+    top: 0;
+    background: var(--lebas-bg);
+    z-index: 50;
+}
+.lebas-header__menu { display: flex; gap: 1.5rem; font-size: 0.85rem; }
+.lebas-header__search { flex: 1; max-width: 24rem; margin-right: 2rem; }
+
+/* ---------- Storefront Footer ---------- */
+.lebas-footer {
+    background: var(--lebas-bg-soft);
+    border-top: 1px solid var(--lebas-border);
+    padding: 3rem 1.5rem 1.5rem;
+}
+.lebas-footer__newsletter { margin-bottom: 2.5rem; }
+.lebas-footer__benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--lebas-border);
+    border-bottom: 1px solid var(--lebas-border);
+    margin-bottom: 2rem;
+}
+.lebas-footer__benefit { text-align: center; font-size: 0.8rem; }
+.lebas-footer__benefit svg { width: 1.5rem; height: 1.5rem; stroke: currentColor; fill: none; stroke-width: 1.25; margin-bottom: 0.5rem; }
+.lebas-footer__links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.lebas-footer__col h4 { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.75rem; }
+.lebas-footer__col ul { list-style: none; padding: 0; margin: 0; font-size: 0.8rem; }
+.lebas-footer__col li { margin-bottom: 0.4rem; }
+.lebas-footer__enamad { text-align: center; margin-bottom: 1.5rem; }
+.lebas-footer__enamad img { height: 60px; }
+.lebas-footer__copyright { text-align: center; font-size: 0.75rem; color: var(--lebas-text-muted); }
+
+/* ---------- Cart Urgency Bar ---------- */
+.lebas-cart-urgency-bar {
+    background: var(--lebas-accent-red);
+    color: #fff;
+    text-align: center;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* ---------- Bottom Sheet ---------- */
+.lebas-bottomsheet {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 50vh;
+    max-height: 95vh;
+    background: var(--lebas-bg);
+    border-top: 1px solid var(--lebas-border);
+    z-index: 9999;
+    transform: translateY(100%);
+    transition: transform 0.35s ease;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+.lebas-bottomsheet.is-open { transform: translateY(0); }
+.lebas-bottomsheet__handle {
+    width: 3rem;
+    height: 0.25rem;
+    background: var(--lebas-border);
+    margin: 0 auto 1rem;
+    border-radius: 2px;
+    cursor: grab;
+}
+.lebas-bottomsheet__title { font-family: var(--lebas-font-serif); font-size: 1.25rem; font-weight: 300; margin-bottom: 1rem; }
+
+/* ---------- Restock Alert Modal ---------- */
+.lebas-restock-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+.lebas-restock-modal.is-open { display: flex; }
+.lebas-restock-modal__box {
+    background: var(--lebas-bg);
+    padding: 2rem;
+    width: 90%;
+    max-width: 420px;
+    border: 1px solid var(--lebas-border);
+}
+.lebas-restock-modal__title { font-family: var(--lebas-font-serif); font-size: 1.25rem; font-weight: 300; margin-bottom: 1rem; }
+.lebas-restock-modal__channels { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.lebas-restock-modal__channel {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid var(--lebas-border);
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+.lebas-restock-modal__channel.is-active { background: var(--lebas-text); color: #fff; }
+
+/* ---------- Designer Directory ---------- */
+.lebas-designers { }
+.lebas-designers__jump {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+}
+.lebas-designers__jump a { padding: 0.25rem 0.5rem; border: 1px solid var(--lebas-border); text-decoration: none; color: inherit; }
+.lebas-designers__group { margin-bottom: 2rem; }
+.lebas-designers__group h3 { font-family: var(--lebas-font-serif); font-size: 1.5rem; font-weight: 300; margin-bottom: 0.75rem; }
+.lebas-designers__list { columns: 3; column-gap: 2rem; list-style: none; padding: 0; }
+.lebas-designers__list li { break-inside: avoid; margin-bottom: 0.4rem; font-size: 0.9rem; }
+
+/* ---------- Smart Size Guide ---------- */
+.lebas-size-guide { border: 1px solid var(--lebas-border); padding: 1.25rem; }
+.lebas-size-guide__title { font-family: var(--lebas-font-serif); font-size: 1.1rem; font-weight: 300; margin-bottom: 0.75rem; }
+.lebas-size-guide__result { font-size: 0.9rem; margin-top: 0.75rem; padding: 0.75rem; background: var(--lebas-bg-soft); }
+
+/* ---------- Packaging Selector ---------- */
+.lebas-packaging {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.lebas-packaging__option {
+    border: 1px solid var(--lebas-border);
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+.lebas-packaging__option.is-selected { border-color: var(--lebas-text); }
+.lebas-packaging__option img { width: 100%; height: 120px; object-fit: cover; margin-bottom: 0.75rem; }
+.lebas-packaging__option h4 { font-size: 0.9rem; font-weight: 500; margin: 0 0 0.25rem; }
+.lebas-packaging__option p { font-size: 0.75rem; color: var(--lebas-text-muted); margin: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .lebas-gateway { grid-template-columns: 1fr; }
+    .lebas-gateway__col { aspect-ratio: 3 / 2; }
+    .lebas-editorial__two-topics { grid-template-columns: 1fr; }
+    .lebas-editorial__entry-doors { grid-template-columns: repeat(2, 1fr); }
+    .lebas-footer__benefits { grid-template-columns: repeat(2, 1fr); }
+    .lebas-footer__links { grid-template-columns: repeat(2, 1fr); }
+    .lebas-designers__list { columns: 2; }
+    .lebas-packaging { grid-template-columns: 1fr; }
+    .lebas-header__row2 { flex-wrap: wrap; gap: 0.5rem; }
+}
+@media (max-width: 480px) {
+    .lebas-footer__benefits { grid-template-columns: 1fr; }
+    .lebas-footer__links { grid-template-columns: 1fr; }
+    .lebas-designers__list { columns: 1; }
+}

@@ -1,0 +1,22 @@
+/*
+Theme Name: Lebas Luxury Child
+Theme URI: https://leb.as
+Description: Child theme of Hello Elementor for Lebas storefront (Quiet Luxury).
+Author: Lebas
+Author URI: https://leb.as
+Template: hello-elementor
+Version: 0.1.0
+Text Domain: lebas-luxury-child
+*/
+
+/* Quiet Luxury base */
+body {
+    background: #ffffff;
+    color: #000000;
+    font-family: 'LebasSans', 'Vazirmatn', 'Jost', sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+a { color: inherit; text-decoration: none; }
+button { border-radius: 0; }
+img { max-width: 100%; height: auto; }

@@ -12,3 +12,8 @@ MCP server name: wordpress
 
 - `mcp-patch.service` (systemd) re-applies the MCP patch after boot.
 - OpenCode service and Docker containers are enabled for auto-start.
+
+## Elementor MCP
+- Server name: lebas-elementor
+- Endpoint: https://world.leb.as/wp-json/elementor/mcp/
+- Config file: ~/.config/opencode/opencode.json and ~/mcp-config.json

@@ -58,6 +58,10 @@ class Lebas_Elementor_Suite_Plugin {
     }
 
     public function register_widgets( $widgets_manager ) {
+        $base = LEBAS_ELEMENTOR_SUITE_PATH . 'includes/widgets/class-widget-base.php';
+        if ( file_exists( $base ) ) {
+            require_once $base;
+        }
         foreach ( $this->widgets as $file => $class ) {
             if ( null === $class ) {
                 continue;
